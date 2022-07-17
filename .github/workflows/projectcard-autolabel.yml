@@ -5,10 +5,10 @@ on:
 jobs:
   update-labels:
     runs-on: ubuntu-latest
-    # if: github.event.project_card.column_id == '19053719'
+    if: github.event.project_card.column_id != '19053730'
     steps:
     - name: Updating labels
-      id: runprojectcardautolabel
+      id: addlabeltopr
       uses: Matticusau/projectcard-autolabel@v1.0.0
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
