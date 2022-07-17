@@ -6,6 +6,7 @@ on:
 
 jobs:
   projectcardautolabel_job:
+    if: github.event.project_card.column_id == '19053501'
     runs-on: ubuntu-latest
     steps:
     - name: Run ProjectCard AutoLabel
