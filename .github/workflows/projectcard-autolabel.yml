@@ -1,18 +1,27 @@
 name: ProjectCard Auto Labels
 
+
 on:
   project_card:
     types: [moved]
 
 jobs:
-  projectcardautolabel_job:
+  automate-issues-labels:
     if: github.event.project_card.column_id == '19053501'
     runs-on: ubuntu-latest
     steps:
-    - name: Run ProjectCard AutoLabel
-      id: runprojectcardautolabel
-      uses: Matticusau/projectcard-autolabel@v1.0.0
-      with:
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
-        autolabel-config: '[{"column":"To Do", "add_labels":["todo_task"], "remove_labels":["triage"]}]'
-        projectfilter-config: '{"include":["*"], "exclude":[]}'
+      - name: Add label
+        uses: andymckay/labeler@master
+        with:
+          add-labels: "needs-triage, bug"
+          remove-labels: "in progress"
+  # projectcardautolabel_job:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - name: Run ProjectCard AutoLabel
+  #     id: runprojectcardautolabel
+  #     uses: Matticusau/projectcard-autolabel@v1.0.0
+  #     with:
+  #       repo-token: ${{ secrets.GITHUB_TOKEN }}
+  #       autolabel-config: '[{"column":"To Do", "add_labels":["todo_task"], "remove_labels":["triage"]}]'
+  #       projectfilter-config: '{"include":["*"], "exclude":[]}'
