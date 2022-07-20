@@ -1,13 +1,14 @@
-name: Auto labels by Rawl
+name: Quote message by Rawl
 on:
   pull_request:
-    types: [labeled]
+    types: [labeled, edited]
 jobs:
   update-message:
     runs-on: ubuntu-latest
-    if: ${{ github.event.label.name == 'NEXT_TO_MERGE' }}
+    # if: ${{ github.event.label.name == 'NEXT_TO_MERGE' }}
     steps:
-      - uses: jenschelkopf/issue-label-notification-action@1.3
+      - name: Add message to PR
+        uses: jenschelkopf/issue-label-notification-action@1.3
         with:
           recipients: |
             NEXT_TO_MERGE=@rawlmp
