@@ -9,7 +9,7 @@ jobs:
     steps:
     - name: Updating labels
       id: addlabeltopr
-      uses: Matticusau/projectcard-autolabel@v1.0.0
+      uses: /rawlmp/card_autolabels
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         autolabel-config: '[{"column":"Pool", "add_labels":[], "remove_labels":["NEXT_TO_MERGE"]},{"column":"Next to merge", "add_labels":["NEXT_TO_MERGE"], "remove_labels":[]},{"column":"Merged", "add_labels":[], "remove_labels":["NEXT_TO_MERGE"]}]'
