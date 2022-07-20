@@ -3,10 +3,6 @@ name: Move card
 on:
   issues:
     types: [labeled]
-  pull_request:
-    types: [labeled]
-  project_card:
-    types: [edited]
  
 jobs:
   automate-issues-labels:
