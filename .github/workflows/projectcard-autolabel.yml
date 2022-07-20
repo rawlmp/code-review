@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Move to In Progress
-        uses: bishalrai96/Project_Card_Automation@master
+        uses: /rawlmp/card_autolabels@master
         with:
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
           label: "QA Passed"
