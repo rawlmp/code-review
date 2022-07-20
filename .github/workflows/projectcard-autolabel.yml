@@ -14,3 +14,9 @@ jobs:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         autolabel-config: '[{"column":"Pool", "add_labels":[], "remove_labels":["NEXT_TO_MERGE"]},{"column":"Next to merge", "add_labels":["NEXT_TO_MERGE"], "remove_labels":[]},{"column":"Merged", "add_labels":[], "remove_labels":["NEXT_TO_MERGE"]}]'
         projectfilter-config: '{"include":["*"], "exclude":[]}'
+
+    - uses: jenschelkopf/issue-label-notification-action@1.3
+      if: ${{ github.event.label.name == 'NEXT_TO_MERGE' }}
+      with:
+        recipients: |
+          NEXT_TO_MERGE=@rawlmp
