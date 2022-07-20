@@ -2,6 +2,8 @@ name: Auto labels by Rawl
 on:
   project_card:
     types: [moved]
+  issues:
+    types: [labeled]
 jobs:
   update-labels:
     runs-on: ubuntu-latest
