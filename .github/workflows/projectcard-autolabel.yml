@@ -1,16 +1,17 @@
 name: Auto labels by Rawl
 on:
-  project_card:
-    types: [moved]
+  pull_request:
+    types: [labeled]
+ 
 jobs:
-  update-labels:
+  automate-issues-labels:
     runs-on: ubuntu-latest
-    # if: github.event.project_card.column_id != '19053730'
     steps:
-    - name: Updating labels
-      id: addlabeltopr
-      uses: /rawlmp/card_autolabels
-      with:
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
-        autolabel-config: '[{"column":"Pool", "add_labels":[], "remove_labels":["NEXT_TO_MERGE"]},{"column":"Next to merge", "add_labels":["NEXT_TO_MERGE"], "remove_labels":[]},{"column":"Merged", "add_labels":[], "remove_labels":["NEXT_TO_MERGE"]}]'
-        projectfilter-config: '{"include":["*"], "exclude":[]}'
+      - name: Move to In Progress
+        uses: bishalrai96/Project_Card_Automation@master
+        with:
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"
+          label: "QA Passed"
+          column: "QA Passed"
+          remove-label: "test, review, ready"
+
