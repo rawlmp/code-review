@@ -1,3 +1,7 @@
+name: Auto Label
+on:
+  project_card:
+    types: [moved]
 jobs:
   update-labels:
     runs-on: ubuntu-latest
