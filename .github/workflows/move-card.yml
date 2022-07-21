@@ -3,7 +3,7 @@ on:
   pull_request:
     types: [labeled]
 jobs:
-  Move_Labeled_Issue_On_Project_Board:
+  moving-cards:
     runs-on: ubuntu-latest
     steps:
     - uses: /rawlmp/move-labeled-pr@master
