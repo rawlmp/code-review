@@ -2,7 +2,7 @@ name: Move Card on Labeled
 on:
   pull_request:
     types: [labeled]
-    tags: ["QA PAssed"]
+    tags: ["QA Passed"]
 jobs:
   moving-cards:
     runs-on: ubuntu-latest
