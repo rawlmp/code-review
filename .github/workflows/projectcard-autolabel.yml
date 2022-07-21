@@ -1,6 +1,6 @@
 name: Auto Label
 on:
-  issues:
+  pull_request:
     types: [labeled]
 jobs:
   Move_Labeled_Issue_On_Project_Board:
