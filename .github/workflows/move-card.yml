@@ -1,4 +1,4 @@
-name: Auto Label
+name: Move Card on Labeled
 on:
   pull_request:
     types: [labeled]

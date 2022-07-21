@@ -1,0 +1,22 @@
+name: Auto Label
+on:
+  project_card:
+    types: [moved]
+jobs:
+  update-labels:
+    runs-on: ubuntu-latest
+    # if: github.event.project_card.column_id != '19053730'
+    steps:
+    - name: Updating labels
+      id: addlabeltopr
+      uses: Matticusau/projectcard-autolabel@v1.0.0
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        autolabel-config: |
+          '[
+          {"column":"Pool", "add_labels":[], "remove_labels":["NEXT_TO_MERGE"]},
+          {"column":"Next to merge", "add_labels":["NEXT_TO_MERGE"], "remove_labels":[]},
+          {"column":"QA Passed", "add_labels":[], "remove_labels":["QA Pending"]}
+          {"column":"Merged", "add_labels":[], "remove_labels":["NEXT_TO_MERGE"]}
+          ]'
+        projectfilter-config: '{"include":["*"], "exclude":[]}' 
