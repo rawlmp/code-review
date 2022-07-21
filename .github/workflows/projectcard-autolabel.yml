@@ -1,16 +1,17 @@
 name: Auto Label
 on:
-  project_card:
-    types: [moved]
+  issues:
+    types: [labeled]
+  pull_request:
+    types: [labeled]
 jobs:
-  update-labels:
+  Move_Labeled_Issue_On_Project_Board:
     runs-on: ubuntu-latest
-    # if: github.event.project_card.column_id != '19053730'
     steps:
-    - name: Updating labels
-      id: addlabeltopr
-      uses: Matticusau/projectcard-autolabel@v1.0.0
+    - uses: konradpabjan/move-labeled-or-milestoned-issue@v2.0
       with:
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
-        autolabel-config: '[{"column":"Pool", "add_labels":[], "remove_labels":["NEXT_TO_MERGE"]},{"column":"Next to merge", "add_labels":["NEXT_TO_MERGE"], "remove_labels":[]},{"column":"Merged", "add_labels":[], "remove_labels":["NEXT_TO_MERGE"]}]'
-        projectfilter-config: '{"include":["*"], "exclude":[]}' 
+        action-token: "${{ secrets.GA_LABELER }}"
+        project-url: "https://github.com/rawlmp/stremio-add-on/projects/1"
+        column-name: "QA Passed"
+        label-name: "QA Passed"
+        columns-to-ignore: "In Review,Ready to deploy,Done"
