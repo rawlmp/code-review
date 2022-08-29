@@ -1,0 +1,16 @@
+name: Label Checker
+on:
+  pull_request:
+    types: [opened, labeled, unlabeled, synchronize]
+jobs:
+  check-labels:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check labels
+      uses: mheap/github-action-required-labels@v2
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        mode: exactly
+        count: 1
+        labels: "NEXT_TO_MERGE"
