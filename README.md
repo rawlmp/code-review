@@ -1,2 +1,2 @@
 # stremio-add-on
-Plugin personal para stremio
+Plugin personal para stremio. Not working
