@@ -12,4 +12,15 @@ jobs:
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         autolabel-config: '[{"column":"Next to merge", "add_labels":["NEXT_TO_MERGE"], "remove_labels":[]},{"column":"Merged", "add_labels":[], "remove_labels":["NEXT_TO_MERGE"]}]'
-        projectfilter-config: '{"include":["*"], "exclude":[]}' 
+        projectfilter-config: '{"include":["*"], "exclude":[]}'
+  check-labels:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check labels
+      uses: mheap/github-action-required-labels@v2
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        mode: exactly
+        count: 1
+        labels: "NEXT_TO_MERGE"
