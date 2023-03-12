@@ -18,11 +18,11 @@ jobs:
         uses: actions/github-script@v4
         with:
           script: |
-            const projects = await github.projects({owner: context.repo.owner});
-            console.log(projects)
+            console.log(${{ steps.get-project-id.outputs.project-id }})
+            const pid = ${{ steps.get-project-id.outputs.project-id }}
             const updatePR = async (pr) => {
               const { data: columns } = await github.projects.listColumns({
-                project_id: ${{ steps.get-project-id.outputs.project-id }}
+                project_id: pid
               });
               const timeSinceUpdate = new Date() - new Date(pr.updated_at);
               const twoMins = 2 * 60 * 1000;
