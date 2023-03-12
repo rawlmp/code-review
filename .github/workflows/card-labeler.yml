@@ -12,4 +12,4 @@ jobs:
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         autolabel-config: '[{"column":"Draft not updated", "add_labels":["Not updated"]},{"column":"Draft to review", "add_labels":[], "remove_labels":[]}]'
-        projectfilter-config: '{"include":["*"], "exclude":[]}'
+        projectfilter-config: '{"include":["code-review-project"], "exclude":[]}'
