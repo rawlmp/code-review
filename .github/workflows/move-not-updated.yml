@@ -12,10 +12,13 @@ jobs:
         uses: actions/github-script@v4
         with:
           script: |
-            const { data: pullRequest } = await github.pulls.get({
+            const { data: pullRequest } = await github.pulls.list({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              pull_number: number
+              state: 'open',
+              sort: 'updated',
+              direction: 'desc',
+              per_page: 100
             });
             console.log(pullRequest)
             const timeSinceUpdate = new Date() - new Date(pullRequest.updated_at);
