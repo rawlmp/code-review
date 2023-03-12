@@ -11,5 +11,5 @@ jobs:
       uses: Matticusau/projectcard-autolabel@v1.0.0
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
-        autolabel-config: '[{"column":"Next to merge", "add_labels":["NEXT_TO_MERGE"], "remove_labels":[]},{"column":"Merged", "add_labels":[], "remove_labels":["NEXT_TO_MERGE"]}]'
+        autolabel-config: '[{"column":"Draft not updated", "add_labels":["Not updated"]},{"column":"Draft to review", "add_labels":[], "remove_labels":[]}]'
         projectfilter-config: '{"include":["*"], "exclude":[]}'
