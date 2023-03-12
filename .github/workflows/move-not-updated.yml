@@ -28,7 +28,7 @@ jobs:
                 });
               }
             }
-            
+
             const { data: prs } = await github.pulls.list({
               owner: context.repo.owner,
               repo: context.repo.repo,
@@ -39,7 +39,7 @@ jobs:
             });
 
             prs.forEach(pr => {
-              const timeSinceUpdate = new Date() - new Date(pullRequest.updated_at);
+              const timeSinceUpdate = new Date() - new Date(pr.updated_at);
               const twoMins = 2 * 60 * 1000;
               updatePR(pr);
             })
