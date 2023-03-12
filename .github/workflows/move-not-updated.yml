@@ -1,42 +1,39 @@
-name: Move PR to column if not updated
+name: Log latest release
 on:
   schedule:
     - cron: "* */12 * * *"
   workflow_dispatch:
-    
+   
 jobs:
-  move-pr:
+  logLatestRelease:
     runs-on: ubuntu-latest
     steps:
-      - name: Move PR to column if not updated
-        uses: actions/github-script@v4
+      - uses: octokit/graphql-action@v2.x
+        id: get_latest_release
         with:
-          script: |
-            const updatePR = async (pr) => {
-              const timeSinceUpdate = new Date() - new Date(pr.updated_at);
-              const twoMins = 2 * 60 * 1000;
-              const columnName = "Draft not updated";
-              const column = await github.projects.getColumn({
-                column_id: 19392871,
-              });
-              if (timeSinceUpdate > twoMins && column) {
-                await github.projects.moveCard({
-                  card_id: pr.head.repo_card.id,
-                  position: "top",
-                  column_id: column.id
-                });
+          query: |
+            query { 
+              repository(owner: "rawlmp", name: "code-review") {
+                pullRequests(last:100, states: OPEN){
+                  nodes{
+                    updatedAt
+                    projectCards {
+                      edges {
+                        node {
+                          id
+                          project{
+                            id
+                            name
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
               }
             }
-
-            const { data: prs } = await github.pulls.list({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              state: 'open',
-              sort: 'updated',
-              direction: 'desc',
-              per_page: 100
-            });
-
-            prs.forEach(pr => {
-              updatePR(pr);
-            })
+          owner: ${{ github.event.repository.owner.name }}
+          repo: ${{ github.event.repository.name }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - run: "echo 'latest release: ${{ steps.get_latest_release.outputs.data }}'"
