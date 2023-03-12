@@ -1,0 +1,33 @@
+name: Move PR to column if not updated
+on:
+  schedule:
+    - cron: "*/2 * * * *"
+jobs:
+  move-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Move PR to column if not updated
+        uses: actions/github-script@v4
+        with:
+          script: |
+            const { owner, repo, number } = context.issue;
+            const { data: pullRequest } = await github.pulls.get({
+              owner,
+              repo,
+              pull_number: number
+            });
+            console.log(pullRequest)
+            const timeSinceUpdate = new Date() - new Date(pullRequest.updated_at);
+            const twelveHoursInMs = 60 * 1000;
+            const { data: columns } = await github.projects.listColumns({
+              project_id: pullRequest.head.repo.project_id
+            });
+            const columnName = "Draft not updated";
+            const column = columns.find((column) => column.name === columnName);
+            if (timeSinceUpdate > twelveHoursInMs && column) {
+              await github.projects.moveCard({
+                card_id: pullRequest.head.repo_card.id,
+                position: "top",
+                column_id: column.id
+              });
+            }
