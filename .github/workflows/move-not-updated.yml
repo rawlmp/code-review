@@ -8,26 +8,16 @@ jobs:
   move-pr:
     runs-on: ubuntu-latest
     steps:
-      - uses: monry/actions-get-project-id@v2
-        id: get-project-id # requires `id` to refer output values with after steps
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          project-owner: 'rawlmp'
-          project-number: 3
       - name: Move PR to column if not updated
         uses: actions/github-script@v4
         with:
           script: |
             const updatePR = async (pr) => {
-              const { data: columns } = await github.projects.listColumns({
-                project_id: pid
-              });
               const timeSinceUpdate = new Date() - new Date(pr.updated_at);
               const twoMins = 2 * 60 * 1000;
               const columnName = "Draft not updated";
-              const column = columns.find((column) => {
-                console.log(column)
-                return column.name === columnName
+              const column = await github.projects.getColumn({
+                column_id: 19392871,
               });
               if (timeSinceUpdate > twoMins && column) {
                 await github.projects.moveCard({
