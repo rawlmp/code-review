@@ -1,11 +1,11 @@
-name: Labeler
+name: Size Checker
 
 on: [pull_request]
 
 jobs:
   size-labeler:
     runs-on: ubuntu-latest
-    name: 'Label the PR'
+    name: 'Label by size'
     steps:
       - name: Pull request size labelling
         uses: alexromer0/pull-request-labeler@2.1.1
