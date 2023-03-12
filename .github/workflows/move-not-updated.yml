@@ -18,7 +18,6 @@ jobs:
         uses: actions/github-script@v4
         with:
           script: |
-            const pid = ${{ steps.get-project-id.outputs.project-id }};
             const updatePR = async (pr) => {
               const { data: columns } = await github.projects.listColumns({
                 project_id: pid
