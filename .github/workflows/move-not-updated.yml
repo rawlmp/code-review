@@ -12,7 +12,7 @@ jobs:
         uses: actions/github-script@v4
         with:
           script: |
-            const projects = await github.projects.list({owner: context.repo.owner});
+            const projects = await github.projects({owner: context.repo.owner});
             console.log(projects)
             const updatePR = async (pr) => {
               const { data: columns } = await github.projects.listColumns({
