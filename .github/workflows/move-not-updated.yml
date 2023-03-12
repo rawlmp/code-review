@@ -2,6 +2,8 @@ name: Move PR to column if not updated
 on:
   schedule:
     - cron: "*/5 * * * *"
+  workflow_dispatch:
+    
 jobs:
   move-pr:
     runs-on: ubuntu-latest
@@ -10,10 +12,9 @@ jobs:
         uses: actions/github-script@v4
         with:
           script: |
-            const { owner, repo, number } = context.issue;
             const { data: pullRequest } = await github.pulls.get({
-              owner,
-              repo,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
               pull_number: number
             });
             console.log(pullRequest)
