@@ -21,9 +21,8 @@ jobs:
               direction: 'desc',
               per_page: 100
             });
-            console.log(prs)
 
-            prs.forEach(pr => {
+            prs.forEach(await (pr) => {
               const timeSinceUpdate = new Date() - new Date(pullRequest.updated_at);
               const twoMins = 2 * 60 * 1000;
               const { data: columns } = await github.projects.listColumns({
