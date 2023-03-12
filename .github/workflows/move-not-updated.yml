@@ -12,7 +12,8 @@ jobs:
         uses: actions/github-script@v4
         with:
           script: |
-            const { data: pullRequest } = await github.pulls.list({
+            console.log(context)
+            const { data: prs } = await github.pulls.list({
               owner: context.repo.owner,
               repo: context.repo.repo,
               state: 'open',
@@ -20,18 +21,21 @@ jobs:
               direction: 'desc',
               per_page: 100
             });
-            console.log(pullRequest)
-            const timeSinceUpdate = new Date() - new Date(pullRequest.updated_at);
-            const twelveHoursInMs = 60 * 1000;
-            const { data: columns } = await github.projects.listColumns({
-              project_id: pullRequest.head.repo.project_id
-            });
-            const columnName = "Draft not updated";
-            const column = columns.find((column) => column.name === columnName);
-            if (timeSinceUpdate > twelveHoursInMs && column) {
-              await github.projects.moveCard({
-                card_id: pullRequest.head.repo_card.id,
-                position: "top",
-                column_id: column.id
+            console.log(prs)
+
+            prs.forEach(pr => {
+              const timeSinceUpdate = new Date() - new Date(pullRequest.updated_at);
+              const twoMins = 2 * 60 * 1000;
+              const { data: columns } = await github.projects.listColumns({
+                project_id: 3
               });
-            }
+              const columnName = "Draft not updated";
+              const column = columns.find((column) => column.name === columnName);
+              if (timeSinceUpdate > twoMins && column) {
+                await github.projects.moveCard({
+                  card_id: pullRequest.head.repo_card.id,
+                  position: "top",
+                  column_id: column.id
+                });
+              }
+            })
