@@ -1,0 +1,17 @@
+name: Move stale PRs to not updated
+on:
+  schedule:
+    - cron: '0 * */2 * *'
+jobs:
+  stale-prs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Move PR to not updated
+        uses: peter-evans/column-action@v2.2.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          project-name: "code-review-project"
+          column-name: "Draft not updated"
+          move-card: true
+          max-age: "2 minutes"
