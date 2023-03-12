@@ -1,7 +1,7 @@
 name: Move PR to column if not updated
 on:
   schedule:
-    - cron: "*/2 * * * *"
+    - cron: "*/5 * * * *"
 jobs:
   move-pr:
     runs-on: ubuntu-latest
