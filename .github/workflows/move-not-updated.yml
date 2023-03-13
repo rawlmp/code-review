@@ -13,7 +13,8 @@ jobs:
         with:
           query: |
             query { 
-              repository(owner: context.repo.owner, name: "code-review") {
+              repository(owner: "rawlmp", name: "code-review") {
+                id
                 pullRequests(last:100, states: OPEN){
                   nodes{
                     updatedAt
