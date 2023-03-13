@@ -13,7 +13,7 @@ jobs:
         with:
           query: |
             query { 
-              repository(owner, name: repo) {
+              repository(owner: "rawlmp", name: "code-review") {
                 id
                 pullRequests(last:100, states: OPEN){
                   nodes{
@@ -33,8 +33,6 @@ jobs:
                 }
               }
             }
-          owner: ${{ github.event.repository.owner.name }}
-          repo: ${{ github.event.repository.name }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: "echo 'latest release: ${{ steps.get_latest_release.outputs.data }}'"
