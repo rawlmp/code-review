@@ -14,4 +14,3 @@ jobs:
           exempt-issue-labels: 'Do not merge'
           stale-pr-label: 'Not Updated'
           days-before-stale: 1
-          days-before-pr-close: -1
