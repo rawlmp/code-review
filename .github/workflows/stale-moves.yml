@@ -3,6 +3,7 @@ name: Move Card to Column
 on:
   pull_request:
     types: [labeled]
+  workflow_dispatch:
 
 jobs:
   move-to-column:
