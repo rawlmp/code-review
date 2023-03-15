@@ -1,4 +1,4 @@
-name: 'Close stale issues and PRs'
+name: 'Label not updated PRs'
 on:
   schedule:
     - cron: '*/5 * * * *'
@@ -10,7 +10,9 @@ jobs:
     steps:
       - uses: actions/stale@v7
         with:
-          stale-pr-message: 'This PR was not updated from last day'
+          stale-pr-message: "This PR hasn't logged any activity for a long time"
           exempt-issue-labels: 'Do not merge'
-          stale-pr-label: 'Not Updated'
-          days-before-stale: 0.00347222
+          stale-pr-label: 'No activity'
+          days-before-stale: 0.625 # 15 hours without updates
+          include-only-assigned: true
+          ignore-pr-updates: true
