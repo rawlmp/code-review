@@ -15,4 +15,4 @@ jobs:
           stale-pr-label: 'No activity'
           days-before-stale: 0.625 # 15 hours without updates
           include-only-assigned: true
-          ignore-pr-updates: true
+          ignore-pr-updates: true # remove this line before pushing to repo
