@@ -10,6 +10,7 @@ jobs:
     steps:
       - uses: actions/stale@v7
         with:
+          stale-pr-message: 'This PR was not updated from last day'
           exempt-issue-labels: 'Do not merge'
           stale-pr-label: 'Not Updated'
           days-before-stale: 1
