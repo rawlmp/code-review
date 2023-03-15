@@ -13,4 +13,4 @@ jobs:
           stale-pr-message: 'This PR was not updated from last day'
           exempt-issue-labels: 'Do not merge'
           stale-pr-label: 'Not Updated'
-          days-before-stale: 1
+          days-before-stale: 0.00347222
